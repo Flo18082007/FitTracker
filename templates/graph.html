@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard avec Graphique</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold text-center text-gray-800 mb-8">Mon Dashboard</h1>
+        
+        <div class="bg-white rounded-lg shadow-lg p-6">
+            <!-- Conteneur pour les graphiques -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Graphique linéaire -->
+                <div class="bg-white p-4 rounded-lg">
+                    <canvas id="lineChart"></canvas>
+                    <input type="text" id="poidsInput" placeholder="Poids du corps" 
+                        class="border rounded px-3 py-2 mr-2">
+                    <input type="date" id="poidsDateInput" placeholder="Date" 
+                        class="border rounded px-3 py-2 mr-2">
+                    <button id="addPoidsButton" 
+                        class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                        Ajouter
+                    </button>
+                </div>
+                <!-- Graphique en barres -->
+                <div class="bg-white p-4 rounded-lg">
+                    <canvas id="barChart"></canvas>
+                    <input type="text" id="caloriesInput" placeholder="Calories" 
+                        class="border rounded px-3 py-2 mr-2">
+                    <input type="date" id="caloriesDateInput" placeholder="Date" 
+                        class="border rounded px-3 py-2 mr-2">
+                    <button id="addCaloriesButton" 
+                        class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                        Ajouter
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="./../Static-Js/graph_poids.js"></script>
+<script src="./../Static-Js/graph_calories.js"></script>
+</html>

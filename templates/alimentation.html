@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suivi des Repas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="flex bg-gray-100">
+    <!-- Navbar latérale -->
+    <nav class="w-64 h-screen bg-gradient-to-b from-indigo-800 to-indigo-900 text-white fixed left-0 top-0">
+        <div class="p-6">
+            <div class="flex items-center gap-3 text-2xl font-bold mb-10">
+                <i class="fas fa-dumbbell text-indigo-400"></i>
+                <span class="text-indigo-100">FitTracker</span>
+            </div>
+            
+            <ul class="space-y-4">
+                <li>
+                    <a href="/dashboard" class="flex items-center gap-3 p-3 rounded-lg hover:bg-indigo-700/50 transition-all duration-200">
+                        <i class="fas fa-home text-indigo-400"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/fromage" class="flex items-center gap-3 p-3 rounded-lg hover:bg-indigo-700/50 transition-all duration-200">
+                        <i class="fas fa-chart-pie text-indigo-400"></i>
+                        <span>Macronutriments</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/planning" class="flex items-center gap-3 p-3 rounded-lg hover:bg-indigo-700/50 transition-all duration-200">
+                        <i class="fas fa-calendar text-indigo-400"></i>
+                        <span>Planning</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/alimentation" class="flex items-center gap-3 p-3 rounded-lg bg-indigo-700/50">
+                        <i class="fas fa-utensils text-indigo-400"></i>
+                        <span>Alimentation</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Contenu principal -->
+    <main class="ml-64 w-full min-h-screen p-8">
+        <div class="max-w-6xl mx-auto">
+            <h1 class="text-3xl font-bold text-indigo-900 mb-8">Journal Alimentaire</h1>
+            <!-- Formulaire d'ajout de repas -->
+            <div class="bg-white rounded-xl shadow-lg p-6 border border-gray-100 mb-8">
+                <form id="mealForm" class="space-y-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-gray-700 text-sm font-bold mb-2" for="mealName">
+                                Nom du repas
+                            </label>
+                            <input type="text" id="mealName" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 text-sm font-bold mb-2" for="calories">
+                                Calories
+                            </label>
+                            <input type="number" id="calories" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 text-sm font-bold mb-2" for="mealType">
+                            Type de repas
+                        </label>
+                        <select id="mealType" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                            <option value="petit-dejeuner">Petit-déjeuner</option>
+                            <option value="dejeuner">Déjeuner</option>
+                            <option value="diner">Dîner</option>
+                            <option value="collation">Collation</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="w-full bg-indigo-500 text-white py-2 px-4 rounded-md hover:bg-indigo-700 transition duration-300">
+                        Ajouter le repas
+                    </button>
+                </form>
+            </div>
+
+            <!-- Résumé des calories -->
+            <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">Résumé du jour</h2>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <p class="text-sm text-gray-600">Total Calories</p>
+                        <p id="totalCalories" class="text-2xl font-bold text-blue-600">0</p>
+                    </div>
+                    <div class="bg-green-50 p-4 rounded-lg">
+                        <p class="text-sm text-gray-600">Petit-déjeuner</p>
+                        <p id="breakfastCalories" class="text-2xl font-bold text-green-600">0</p>
+                    </div>
+                    <div class="bg-yellow-50 p-4 rounded-lg">
+                        <p class="text-sm text-gray-600">Déjeuner</p>
+                        <p id="lunchCalories" class="text-2xl font-bold text-yellow-600">0</p>
+                    </div>
+                    <div class="bg-red-50 p-4 rounded-lg">
+                        <p class="text-sm text-gray-600">Dîner</p>
+                        <p id="dinnerCalories" class="text-2xl font-bold text-red-600">0</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Liste des repas -->
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">Repas d'aujourd'hui</h2>
+                <div id="mealsList" class="space-y-4">
+                    <!-- Les repas seront ajoutés ici dynamiquement -->
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="{{ url_for('static', filename='js/alimentation.js') }}"></script>
+</body>
+</html>
