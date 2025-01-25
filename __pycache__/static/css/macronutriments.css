@@ -1,0 +1,13 @@
+.gradient-background {
+    background: linear-gradient(135deg, #f6f8fc 0%, #e9f0f9 100%);
+}
+.card-shadow {
+    box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.1);
+}
+.input-style {
+    @apply mt-1 block w-full rounded-lg border border-gray-200 px-4 py-3 
+    focus:border-blue-400 focus:ring-blue-400 transition-all duration-200;
+}
+.macro-card {
+    @apply p-4 rounded-xl bg-white/50 backdrop-blur-sm border border-gray-100;
+}
