@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Répartition des Calories</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .gradient-background {
+            background: linear-gradient(135deg, #f6f8fc 0%, #e9f0f9 100%);
+        }
+        .card-shadow {
+            box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.1);
+        }
+        .input-style {
+            @apply mt-1 block w-full rounded-lg border border-gray-200 px-4 py-3 
+            focus:border-blue-400 focus:ring-blue-400 transition-all duration-200;
+        }
+        .macro-card {
+            @apply p-4 rounded-xl bg-white/50 backdrop-blur-sm border border-gray-100;
+        }
+    </style>
+</head>
+<body class="flex bg-gray-100">
+    <!-- Navbar latérale -->
+    <nav class="w-64 h-screen bg-gradient-to-b from-indigo-800 to-indigo-900 text-white fixed left-0 top-0">
+        <div class="p-6">
+            <div class="flex items-center gap-3 text-2xl font-bold mb-10">
+                <i class="fas fa-dumbbell text-indigo-400"></i>
+                <span class="text-indigo-100">FitTracker</span>
+            </div>
+            
+            <ul class="space-y-4">
+                <li>
+                    <a href="/dashboard" class="flex items-center gap-3 p-3 rounded-lg hover:bg-indigo-700/50 transition-all duration-200">
+                        <i class="fas fa-home text-indigo-400"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/fromage" class="flex items-center gap-3 p-3 rounded-lg bg-indigo-700/50">
+                        <i class="fas fa-chart-pie text-indigo-400"></i>
+                        <span>Macronutriments</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/planning" class="flex items-center gap-3 p-3 rounded-lg hover:bg-indigo-700/50 transition-all duration-200">
+                        <i class="fas fa-calendar text-indigo-400"></i>
+                        <span>Planning</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/alimentation" class="flex items-center gap-3 p-3 rounded-lg hover:bg-indigo-700/50 transition-all duration-200">
+                        <i class="fas fa-utensils text-indigo-400"></i>
+                        <span>Alimentation</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Contenu principal -->
+    <main class="ml-64 w-full min-h-screen p-8">
+        <div class="max-w-6xl mx-auto">
+            <h1 class="text-3xl font-bold text-indigo-900 mb-8">Répartition des Macronutriments</h1>
+            <div class="max-w-4xl mx-auto">
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- Graphique fromage -->
+                    <div class="card-shadow bg-white rounded-2xl p-8">
+                        <div class="relative aspect-square">
+                            <canvas id="pieChart"></canvas>
+                            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
+                                <span id="totalCalories" class="text-5xl font-bold block text-gray-800">2700</span>
+                                <span class="text-xl text-gray-500">kcal</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Formulaire -->
+                    <div class="card-shadow bg-white rounded-2xl p-8">
+                        <h2 class="text-2xl font-semibold mb-6 text-gray-800">Ajuster les macronutriments</h2>
+                        <div class="space-y-6">
+                            <div class="grid grid-cols-2 gap-6">
+                                <div class="macro-card">
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Protéines (%)</label>
+                                    <input type="number" id="proteinesInput" value="25" min="0" max="100" class="input-style">
+                                </div>
+                                <div class="macro-card">
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Lipides (%)</label>
+                                    <input type="number" id="lipidesInput" value="25" min="0" max="100" class="input-style">
+                                </div>
+                            </div>
+                            
+                            <div class="macro-card">
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Glucides (%)</label>
+                                <input type="number" id="glucidesInput" value="50" min="0" max="100" class="input-style">
+                            </div>
+                            
+                            <div class="macro-card">
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Total Calories</label>
+                                <input type="number" id="caloriesInput" value="2700" min="0" class="input-style">
+                            </div>
+
+                            <button id="updateButton" 
+                                class="w-full bg-indigo-500 hover:bg-indigo-700 text-white px-6 py-3 rounded-xl
+                                font-medium transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98]
+                                shadow-lg hover:shadow-xl">
+                                Mettre à jour
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="{{ url_for('static', filename='js/fromage.js') }}"></script>
+</body>
+</html>
