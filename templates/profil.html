@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Portfolio - FitTracker</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    </head>
+    <body class="flex bg-gray-100">
+        <!-- Navbar latérale (la même que les autres pages) -->
+        <nav class="w-64 h-screen bg-gradient-to-b from-indigo-800 to-indigo-900 text-white fixed left-0 top-0">
+            <div class="p-6">
+                <div class="flex items-center gap-3 text-2xl font-bold mb-10">
+                    <i class="fas fa-dumbbell text-indigo-400"></i>
+                    <span class="text-indigo-100">FitTracker</span>
+                </div>
+                
+                <!-- Menu principal avec style amélioré -->
+                <ul class="space-y-4">
+                    <li>
+                        <a href="{{ url_for('dashboard') }}" class="flex items-center gap-3 p-3 rounded-lg hover:bg-indigo-700/50 transition-all duration-200">
+                            <i class="fas fa-home text-indigo-400"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('chat') }}" class="flex items-center gap-3 p-3 rounded-lg hover:bg-indigo-700/50 transition-all duration-200">
+                            <i class="fas fa-comment text-indigo-400"></i>
+                            <span>Chat</span>
+                        </a>
+                    </li>
+                    
+                    <!-- Menu Information Personnelle avec sous-menu -->
+                    <li class="relative group">
+                        <button class="flex items-center justify-between w-full p-3 rounded-lg hover:bg-indigo-700/50 transition-all duration-200">
+                            <div class="flex items-center gap-2">
+                                <i class="fas fa-user text-indigo-400"></i>
+                                <span>Account</span>
+                            </div>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <ul class="pl-4 mt-2 space-y-1 hidden">
+                            <li>
+                                <a href="{{ url_for('profil') }}" class="flex items-center gap-3 p-3 rounded-lg hover:bg-indigo-700/50 transition-all duration-200">
+                                    <i class="fas fa-id-card text-indigo-400"></i>
+                                    <span>Profil</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ url_for('planning') }}" class="flex items-center gap-3 p-3 rounded-lg hover:bg-indigo-700/50 transition-all duration-200">
+                                    <i class="fas fa-calendar-alt text-indigo-400"></i>
+                                    <span>Plannings</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ url_for('objectifs') }}" class="flex items-center gap-3 p-3 rounded-lg hover:bg-indigo-700/50 transition-all duration-200">
+                                    <i class="fas fa-chart-line text-indigo-400"></i>
+                                    <span>Objectifs</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ url_for('alimentation') }}" class="flex items-center gap-3 p-3 rounded-lg hover:bg-indigo-700/50 transition-all duration-200">
+                                    <i class="fas fa-utensils text-indigo-400"></i>
+                                    <span>Alimentation</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ url_for('fromage') }}" class="flex items-center gap-3 p-3 rounded-lg hover:bg-indigo-700/50 transition-all duration-200">
+                                    <i class="fas fa-chart-pie text-indigo-400"></i>
+                                    <span>Macronutriments</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+    
+                    <!-- Nouveau menu Settings avec sous-menu -->
+                    <li class="relative group">
+                        <button class="flex items-center justify-between w-full p-3 rounded-lg hover:bg-indigo-700/50 transition-all duration-200">
+                            <div class="flex items-center gap-2">
+                                <i class="fas fa-cog text-indigo-400"></i>
+                                <span>Settings</span>
+                            </div>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <ul class="pl-4 mt-2 space-y-1 hidden">
+                            <li>
+                                <a href="{{ url_for('settings_notifications') }}" class="flex items-center gap-3 p-3 rounded-lg hover:bg-indigo-700/50 transition-all duration-200">
+                                    <i class="fas fa-bell text-indigo-400"></i>
+                                    <span>Notifications</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ url_for('settings_securite') }}" class="flex items-center gap-3 p-3 rounded-lg hover:bg-indigo-700/50 transition-all duration-200">
+                                    <i class="fas fa-lock text-indigo-400"></i>
+                                    <span>Sécurité</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ url_for('settings_apparence') }}" class="flex items-center gap-3 p-3 rounded-lg hover:bg-indigo-700/50 transition-all duration-200">
+                                    <i class="fas fa-palette text-indigo-400"></i>
+                                    <span>Apparence</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- Contenu principal -->
+        <main class="ml-64 w-full bg-gray-50 min-h-screen">
+            <div class="container px-6 py-8">
+                <h1 class="text-3xl font-bold text-indigo-900 mb-8">À Propos de FitTracker</h1>
+
+                <!-- Section Hero -->
+                <div class="bg-white rounded-xl shadow-lg p-8 mb-8 border border-gray-100">
+                    <div class="flex flex-col md:flex-row items-center gap-8">
+                        <div class="flex-1">
+                            <h2 class="text-2xl font-bold text-indigo-800 mb-4">Votre Compagnon Fitness Personnel</h2>
+                            <p class="text-gray-600 mb-6">FitTracker est une application complète de suivi fitness qui vous aide à atteindre vos objectifs de santé et de bien-être.</p>
+                            <div class="flex gap-4">
+                                <a href="#features" class="bg-indigo-500 text-white px-6 py-2 rounded-md hover:bg-indigo-700 transition duration-300">Découvrir</a>
+                                <a href="/dashboard" class="border border-indigo-500 text-indigo-500 px-6 py-2 rounded-md hover:bg-indigo-50 transition duration-300">Commencer</a>
+                            </div>
+                        </div>
+                        <div class="flex-1 flex justify-center items-center">
+                            <div class="text-center">
+                                <i class="fas fa-dumbbell text-indigo-400 text-8xl"></i>
+                                <span class="sr-only">FitTracker App</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Section Fonctionnalités -->
+                <div id="features" class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                    <!-- Suivi des Objectifs -->
+                    <div class="bg-white rounded-xl shadow-lg p-6 border border-gray-100">
+                        <div class="text-indigo-500 text-3xl mb-4">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-indigo-800 mb-3">Suivi des Objectifs</h3>
+                        <p class="text-gray-600">Définissez vos objectifs et suivez votre progression avec des graphiques détaillés et des analyses personnalisées.</p>
+                    </div>
+
+                    <!-- Planning Personnalisé -->
+                    <div class="bg-white rounded-xl shadow-lg p-6 border border-gray-100">
+                        <div class="text-indigo-500 text-3xl mb-4">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-indigo-800 mb-3">Planning Personnalisé</h3>
+                        <p class="text-gray-600">Créez et suivez votre programme d'entraînement personnalisé adapté à vos objectifs.</p>
+                    </div>
+
+                    <!-- Suivi Nutritionnel -->
+                    <div class="bg-white rounded-xl shadow-lg p-6 border border-gray-100">
+                        <div class="text-indigo-500 text-3xl mb-4">
+                            <i class="fas fa-utensils"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-indigo-800 mb-3">Suivi Nutritionnel</h3>
+                        <p class="text-gray-600">Suivez votre alimentation et vos macronutriments pour optimiser vos résultats.</p>
+                    </div>
+                </div>
+
+                <!-- Section Assistant IA -->
+                <div class="bg-white rounded-xl shadow-lg p-8 mb-8 border border-gray-100">
+                    <div class="flex flex-col md:flex-row items-center gap-8">
+                        <div class="flex-1">
+                            <h2 class="text-2xl font-bold text-indigo-800 mb-4">Assistant IA Intégré</h2>
+                            <p class="text-gray-600 mb-4">Notre assistant IA vous guide et répond à toutes vos questions sur la nutrition, l'entraînement et la santé en général.</p>
+                            <ul class="space-y-2 text-gray-600">
+                                <li class="flex items-center gap-2">
+                                    <i class="fas fa-check text-green-500"></i>
+                                    Conseils personnalisés
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <i class="fas fa-check text-green-500"></i>
+                                    Disponible 24/7
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <i class="fas fa-check text-green-500"></i>
+                                    Réponses basées sur la science
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="flex-1">
+                            <div class="bg-indigo-50 p-6 rounded-lg">
+                                <!-- Simulation de chat -->
+                                <div class="space-y-4">
+                                    <div class="flex justify-end">
+                                        <div class="bg-indigo-500 text-white p-3 rounded-lg max-w-[80%]">
+                                            Comment puis-je optimiser ma récupération ?
+                                        </div>
+                                    </div>
+                                    <div class="flex justify-start">
+                                        <div class="bg-white p-3 rounded-lg max-w-[80%] shadow">
+                                            Je peux vous aider avec des conseils personnalisés sur la récupération...
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Call to Action -->
+                <div class="bg-gradient-to-r from-indigo-600 to-indigo-800 rounded-xl shadow-lg p-8 text-center text-white">
+                    <h2 class="text-2xl font-bold mb-4">Prêt à commencer votre voyage fitness ?</h2>
+                    <p class="mb-6">Rejoignez FitTracker aujourd'hui et transformez vos objectifs en réalité.</p>
+                    <a href="/register" class="bg-white text-indigo-600 px-8 py-3 rounded-md hover:bg-indigo-50 transition duration-300 inline-block">
+                        Commencer Gratuitement
+                    </a>
+                </div>
+            </div>
+        </main>
+
+        <script src="{{ url_for('static', filename='js/profil-navbar.js') }}"></script>
+    </body>
+</html>

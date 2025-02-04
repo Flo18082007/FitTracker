@@ -289,53 +289,42 @@ def objectifs():
 def chat():
     return render_template('chat.html')
 
+@app.route('/apparence')
+@login_required
+def apparence():
+    return render_template('apparence.html')
 
+@app.route('/settings/notifications')
+@login_required
+def settings_notifications():
+    return render_template('notifications.html')
+
+@app.route('/settings/securite')
+@login_required
+def settings_securite():
+    return render_template('securite.html')
+
+@app.route('/settings/apparence')
+@login_required
+def settings_apparence():
+    return render_template('apparence.html')
 
 @app.route('/profil')
 @login_required
 def profil():
     return render_template('profil.html')
 
-@app.route('/notifications')
+@app.route('/abonnement')
 @login_required
-def notifications():
-    return render_template('notifications.html')
-
-@app.route('/securite')
-@login_required
-def securite():
-    return render_template('securite.html')
-
-@app.route('/apparence')
-@login_required
-def apparence():
-    return render_template('apparence.html')
-
-@app.route('/settings')
-@login_required
-def settings():
-    return render_template('settings.html')
-
-@app.route('/notifications')
-@login_required
-def settings_notifications():
-    return render_template('notifications.html')
-
-@app.route('/securite')
-@login_required
-def settings_securite():
-    return render_template('securite.html')
-
-@app.route('/apparence')
-@login_required
-def settings_apparence():
-    return render_template('apparence.html')
-
-
+def abonnement():
+    return render_template('abonnement.html')
 
 # Ajouter une route de déconnexion
 @app.route('/logout')
 def logout():
+
+
+
     session.clear()
     return redirect(url_for('home'))
 

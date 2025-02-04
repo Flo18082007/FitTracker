@@ -53,12 +53,6 @@
                             </a>
                         </li>
                         <li>
-                            <a href="{{ url_for('abonnement') }}" class="flex items-center gap-3 p-3 rounded-lg hover:bg-indigo-700/50 transition-all duration-200">
-                                <i class="fas fa-bell text-indigo-400"></i>
-                                <span>Abonnement</span>
-                            </a>
-                        </li>
-                        <li>
                             <a href="{{ url_for('planning') }}" class="flex items-center gap-3 p-3 rounded-lg hover:bg-indigo-700/50 transition-all duration-200">
                                 <i class="fas fa-calendar-alt text-indigo-400"></i>
                                 <span>Plannings</span>
@@ -100,11 +94,13 @@
                                 <i class="fas fa-bell text-indigo-400"></i>
                                 <span>Notifications</span>
                             </a>
+
                         </li>
                         <li>
                             <a href="{{ url_for('settings_securite') }}" class="flex items-center gap-3 p-3 rounded-lg hover:bg-indigo-700/50 transition-all duration-200">
                                 <i class="fas fa-lock text-indigo-400"></i>
                                 <span>Sécurité</span>
+
                             </a>
                         </li>
                         <li>
@@ -119,42 +115,7 @@
         </div>
     </nav>
 
-    <!-- Contenu principal -->
-    <main class="ml-64 w-full bg-gray-50 min-h-screen">
-        <div class="container px-6 py-8">
-            <h1 class="text-3xl font-bold text-indigo-900 mb-8">Mon Dashboard</h1>
-            
-            <div class="bg-white rounded-xl shadow-lg p-6 border border-gray-100">
-                <!-- Conteneur pour les graphiques -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <!-- Graphique linéaire -->
-                    <div class="bg-white p-4 rounded-lg">
-                        <canvas id="lineChart"></canvas>
-                        <input type="text" id="poidsInput" placeholder="Poids du corps" 
-                            class="border rounded px-3 py-2 mr-2">
-                        <input type="date" id="poidsDateInput" placeholder="Date" 
-                            class="border rounded px-3 py-2 mr-2">
-                        <button id="addPoidsButton" 
-                            class="bg-indigo-500 text-white px-4 py-2 rounded hover:bg-indigo-700/50 transition-all duration-200">
-                            Ajouter
-                        </button>
-                    </div>
-                    <!-- Graphique en barres -->
-                    <div class="bg-white p-4 rounded-lg">
-                        <canvas id="barChart"></canvas>
-                        <input type="text" id="caloriesInput" placeholder="Calories" 
-                            class="border rounded px-3 py-2 mr-2">
-                        <input type="date" id="caloriesDateInput" placeholder="Date" 
-                            class="border rounded px-3 py-2 mr-2">
-                        <button id="addCaloriesButton" 
-                            class="bg-indigo-500 text-white px-4 py-2 rounded hover:bg-indigo-700/50 transition-all duration-200">
-                            Ajouter
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
+    
     <script src="{{ url_for('static', filename='js/graph_poids.js') }}"></script>
     <script src="{{ url_for('static', filename='js/graph_calories.js') }}"></script>
     <script src="{{ url_for('static', filename='js/Dashboard.js') }}"></script>
