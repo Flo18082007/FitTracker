@@ -319,12 +319,14 @@ def profil():
 def abonnement():
     return render_template('abonnement.html')
 
+@app.route('/paiement')
+@login_required
+def paiement():
+    return render_template('paiement.html')
+
 # Ajouter une route de déconnexion
 @app.route('/logout')
 def logout():
-
-
-
     session.clear()
     return redirect(url_for('home'))
 
