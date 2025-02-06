@@ -1,14 +1,19 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Paiement - FitTracker</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Document</title>
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body class="flex bg-gray-100">
-    <!-- Navbar latérale (la même que les autres pages) -->
+    
+    <!-- Navbar latérale -->
     <nav class="w-64 h-screen bg-gradient-to-b from-indigo-800 to-indigo-900 text-white fixed left-0 top-0">
         <div class="p-6">
             <div class="flex items-center gap-3 text-2xl font-bold mb-10">
@@ -16,7 +21,6 @@
                 <span class="text-indigo-100">FitTracker</span>
             </div>
             
-
             <!-- Menu principal avec style amélioré -->
             <ul class="space-y-4">
                 <li>
@@ -31,9 +35,16 @@
                         <span>Chat</span>
                     </a>
                 </li>
+                <li>
+                    <a href="{{ url_for('store') }}" class="flex items-center gap-3 p-3 rounded-lg hover:bg-indigo-700/50 transition-all duration-200">
+                        <i class="fas fa-store text-indigo-400"></i>
+                        <span>Store</span>
+                    </a>
+                </li>
                 
                 <!-- Menu Information Personnelle avec sous-menu -->
                 <li class="relative group">
+
                     <button class="flex items-center justify-between w-full p-3 rounded-lg hover:bg-indigo-700/50 transition-all duration-200">
                         <div class="flex items-center gap-2">
                             <i class="fas fa-user text-indigo-400"></i>
@@ -114,108 +125,3 @@
             </ul>
         </div>
     </nav>
-
-
-    <!-- Contenu principal -->
-    <main class="ml-64 w-full bg-gray-50 min-h-screen">
-        <div class="container px-6 py-8">
-            <h1 class="text-3xl font-bold text-indigo-900 mb-8">Paiement</h1>
-
-            <!-- Formulaire de paiement -->
-            <div class="max-w-2xl mx-auto">
-                <div class="bg-white rounded-xl shadow-lg p-8 border border-gray-100">
-                    <!-- Résumé de l'abonnement -->
-                    <div class="mb-8 pb-8 border-b border-gray-200">
-                        <h2 class="text-xl font-semibold text-gray-800 mb-4">Résumé de votre abonnement</h2>
-                        <div class="flex justify-between items-center">
-                            <div>
-                                <p class="text-gray-600">Plan sélectionné:</p>
-                                <p class="text-lg font-medium text-indigo-600" id="selectedPlan">Premium</p>
-                            </div>
-                            <div>
-                                <p class="text-gray-600">Prix mensuel:</p>
-                                <p class="text-lg font-medium text-indigo-600" id="planPrice">9.99€</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Formulaire de carte de crédit -->
-                    <form id="paymentForm" class="space-y-6">
-                        <!-- Informations de la carte -->
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">
-                                Numéro de carte
-                            </label>
-                            <div class="relative">
-                                <input type="text" 
-                                       id="cardNumber" 
-                                       class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
-                                       placeholder="1234 5678 9012 3456"
-                                       maxlength="19"
-                                       required>
-                                <i class="fas fa-credit-card absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-                            </div>
-                        </div>
-
-                        <div class="grid grid-cols-2 gap-4">
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">
-                                    Date d'expiration
-                                </label>
-                                <input type="text" 
-                                       id="expDate" 
-                                       class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
-                                       placeholder="MM/AA"
-                                       maxlength="5"
-                                       required>
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">
-                                    Code CVC
-                                </label>
-                                <div class="relative">
-                                    <input type="text" 
-                                           id="cvc" 
-                                           class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
-                                           placeholder="123"
-                                           maxlength="3"
-                                           required>
-                                    <i class="fas fa-question-circle absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 cursor-help"
-                                       title="Le code de sécurité à 3 chiffres au dos de votre carte"></i>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Informations du titulaire -->
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">
-                                Nom sur la carte
-                            </label>
-                            <input type="text" 
-                                   id="cardName" 
-                                   class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
-                                   placeholder="John Doe"
-                                   required>
-                        </div>
-
-                        <!-- Bouton de paiement -->
-                        <button type="submit" 
-                                class="w-full bg-indigo-600 text-white py-3 rounded-lg hover:bg-indigo-700 transition-colors flex items-center justify-center gap-2">
-                            <i class="fas fa-lock"></i>
-                            Payer maintenant
-                        </button>
-                    </form>
-
-                    <!-- Sécurité -->
-                    <div class="mt-6 flex items-center justify-center gap-2 text-sm text-gray-500">
-                        <i class="fas fa-shield-alt"></i>
-                        <span>Paiement sécurisé et crypté</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
-
-    <script src="{{ url_for('static', filename='js/paiment.js') }}"></script>
-</body>
-</html>

@@ -35,3 +35,21 @@ if __name__ == "__main__":
         print("La base de données a été créée et initialisée avec succès!")
     except Exception as e:
         print(f"Erreur lors de l'initialisation de la base de données: {e}") 
+
+def add_emeralds_column():
+    conn = sqlite3.connect('database.db')
+    cursor = conn.cursor()
+    try:
+        # Vérifier si la colonne existe déjà
+        cursor.execute("SELECT emeralds FROM users LIMIT 1")
+    except sqlite3.OperationalError:
+        # La colonne n'existe pas, on l'ajoute
+        cursor.execute("ALTER TABLE users ADD COLUMN emeralds INTEGER DEFAULT 0")
+        conn.commit()
+        print("Colonne emeralds ajoutée avec succès")
+    finally:
+        conn.close()
+
+# Appelez cette fonction au démarrage de l'application
+if __name__ == '__main__':
+    add_emeralds_column()

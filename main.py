@@ -259,6 +259,58 @@ def get_stats():
         if 'db' in locals():
             db.close()
 
+@app.route('/process-emeralds-payment', methods=['POST'])
+@login_required
+def process_emeralds_payment():
+    try:
+        data = request.get_json()
+        amount = data.get('amount')
+        plan = data.get('plan')
+        
+        db = get_db()
+        cursor = db.cursor()
+        
+        # Vérifier le solde actuel
+        user_data = cursor.execute(
+            'SELECT emeralds FROM users WHERE id = ?', (session['users_id'],)
+        ).fetchone()
+        
+        current_emeralds = user_data['emeralds'] if user_data else 0
+        
+        if current_emeralds < amount:
+            return jsonify({
+                'success': False,
+                'error': 'Solde insuffisant'
+            }), 400
+        
+        # Mettre à jour le solde et l'abonnement
+        cursor.execute('''
+            UPDATE users 
+            SET emeralds = emeralds - ?,
+                subscription_plan = ?,
+                subscription_status = 'active',
+                subscription_start = CURRENT_TIMESTAMP
+            WHERE id = ?
+        ''', (amount, plan, session['users_id']))
+        
+
+        db.commit()
+        
+        return jsonify({
+            'success': True,
+            'new_balance': current_emeralds - amount
+        })
+        
+    except sqlite3.Error as e:
+        print(f"Erreur SQLite: {e}")
+        return jsonify({  'success': False,
+            'error': 'Une erreur est survenue'
+        }), 500
+    finally:
+        if 'db' in locals():
+            db.close()
+            
+
 @app.route('/dashboard')
 @login_required
 def dashboard():
@@ -319,14 +371,42 @@ def profil():
 def abonnement():
     return render_template('abonnement.html')
 
-@app.route('/paiement')
+@app.route('/paiement/<plan>')
 @login_required
-def paiement():
-    return render_template('paiement.html')
+def paiement(plan):
+    try:
+        db = get_db()
+        cursor = db.cursor()
+        
+        # Récupérer les informations de l'utilisateur
+        user_data = cursor.execute(
+            'SELECT * FROM users WHERE id = ?', (session['user_id'],)
+        ).fetchone()
+        
+        if not user_data:
+            return redirect(url_for('home'))
+            
+        # Convertir le Row en dictionnaire pour le passer au template
+        user = dict(user_data)
+        
+        return render_template('paiement.html', user=user, plan=plan)
+        
+    except Exception as e:
+        print(f"Erreur: {e}")
+        return redirect(url_for('home'))
+    finally:
+        if 'db' in locals():
+            db.close()
+
+@app.route('/store')
+@login_required
+def store():
+    return render_template('store.html')
 
 # Ajouter une route de déconnexion
 @app.route('/logout')
 def logout():
+
     session.clear()
     return redirect(url_for('home'))
 
