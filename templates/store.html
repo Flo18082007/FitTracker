@@ -1,51 +1,44 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <!-- Tailwind CSS -->
+    <title>Boutique - FitTracker</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
-<body class="flex bg-gray-100">
-    
+<body class="flex">
     <!-- Navbar latérale -->
-    <nav class="w-64 h-screen bg-gradient-to-b from-indigo-800 to-indigo-900 text-white fixed left-0 top-0">
+    <nav class="w-64 h-screen bg-indigo-900 text-white fixed left-0 top-0">
         <div class="p-6">
             <div class="flex items-center gap-3 text-2xl font-bold mb-10">
                 <i class="fas fa-dumbbell text-indigo-400"></i>
                 <span class="text-indigo-100">FitTracker</span>
             </div>
             
-            <!-- Menu principal avec style amélioré -->
+            <!-- Menu principal -->
             <ul class="space-y-4">
                 <li>
-                    <a href="{{ url_for('dashboard') }}" class="flex items-center gap-3 p-3 rounded-lg hover:bg-indigo-700/50 transition-all duration-200">
+                    <a href="{{ url_for('dashboard') }}" class="flex items-center gap-3 p-3 rounded-lg hover:bg-indigo-800 transition-all duration-200">
                         <i class="fas fa-home text-indigo-400"></i>
                         <span>Dashboard</span>
                     </a>
                 </li>
                 <li>
-                    <a href="{{ url_for('chat') }}" class="flex items-center gap-3 p-3 rounded-lg hover:bg-indigo-700/50 transition-all duration-200">
+                    <a href="{{ url_for('chat') }}" class="flex items-center gap-3 p-3 rounded-lg hover:bg-indigo-800 transition-all duration-200">
                         <i class="fas fa-comment text-indigo-400"></i>
                         <span>Chat</span>
                     </a>
                 </li>
                 <li>
-                    <a href="{{ url_for('store') }}" class="flex items-center gap-3 p-3 rounded-lg hover:bg-indigo-700/50 transition-all duration-200">
+                    <a href="{{ url_for('store') }}" class="flex items-center gap-3 p-3 rounded-lg bg-indigo-800">
                         <i class="fas fa-store text-indigo-400"></i>
                         <span>Store</span>
                     </a>
                 </li>
                 
-                <!-- Menu Information Personnelle avec sous-menu -->
                 <li class="relative group">
-
-                    <button class="flex items-center justify-between w-full p-3 rounded-lg hover:bg-indigo-700/50 transition-all duration-200">
+                    <button class="flex items-center justify-between w-full p-3 rounded-lg hover:bg-indigo-800 transition-all duration-200">
                         <div class="flex items-center gap-2">
                             <i class="fas fa-user text-indigo-400"></i>
                             <span>Account</span>
@@ -54,74 +47,315 @@
                     </button>
                     <ul class="pl-4 mt-2 space-y-1 hidden">
                         <li>
-                            <a href="{{ url_for('profil') }}" class="flex items-center gap-3 p-3 rounded-lg hover:bg-indigo-700/50 transition-all duration-200">
+                            <a href="{{ url_for('profil') }}" class="flex items-center gap-3 p-3 rounded-lg hover:bg-indigo-800 transition-all duration-200">
                                 <i class="fas fa-id-card text-indigo-400"></i>
                                 <span>Profil</span>
                             </a>
                         </li>
                         <li>
-                            <a href="{{ url_for('abonnement') }}" class="flex items-center gap-3 p-3 rounded-lg hover:bg-indigo-700/50 transition-all duration-200">
+                            <a href="{{ url_for('abonnement') }}" class="flex items-center gap-3 p-3 rounded-lg hover:bg-indigo-800 transition-all duration-200">
                                 <i class="fas fa-bell text-indigo-400"></i>
                                 <span>Abonnement</span>
                             </a>
                         </li>
                         <li>
-                            <a href="{{ url_for('planning') }}" class="flex items-center gap-3 p-3 rounded-lg hover:bg-indigo-700/50 transition-all duration-200">
+                            <a href="{{ url_for('planning') }}" class="flex items-center gap-3 p-3 rounded-lg hover:bg-indigo-800 transition-all duration-200">
                                 <i class="fas fa-calendar-alt text-indigo-400"></i>
                                 <span>Plannings</span>
                             </a>
                         </li>
-                        <li>
-                            <a href="{{ url_for('objectifs') }}" class="flex items-center gap-3 p-3 rounded-lg hover:bg-indigo-700/50 transition-all duration-200">
-                                <i class="fas fa-chart-line text-indigo-400"></i>
-                                <span>Objectifs</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ url_for('alimentation') }}" class="flex items-center gap-3 p-3 rounded-lg hover:bg-indigo-700/50 transition-all duration-200">
-                                <i class="fas fa-utensils text-indigo-400"></i>
-                                <span>Alimentation</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ url_for('fromage') }}" class="flex items-center gap-3 p-3 rounded-lg hover:bg-indigo-700/50 transition-all duration-200">
-                                <i class="fas fa-chart-pie text-indigo-400"></i>
-                                <span>Macronutriments</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('objectifs') }}" class="flex items-center gap-3 p-3 rounded-lg hover:bg-indigo-700/50 transition-all duration-200">
+                            <i class="fas fa-chart-line text-indigo-400"></i>
+                            <span>Objectifs</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('alimentation') }}" class="flex items-center gap-3 p-3 rounded-lg hover:bg-indigo-700/50 transition-all duration-200">
+                            <i class="fas fa-utensils text-indigo-400"></i>
+                            <span>Alimentation</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('fromage') }}" class="flex items-center gap-3 p-3 rounded-lg hover:bg-indigo-700/50 transition-all duration-200">
+                            <i class="fas fa-chart-pie text-indigo-400"></i>
+                            <span>Macronutriments</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
 
-                <!-- Nouveau menu Settings avec sous-menu -->
-                <li class="relative group">
-                    <button class="flex items-center justify-between w-full p-3 rounded-lg hover:bg-indigo-700/50 transition-all duration-200">
-                        <div class="flex items-center gap-2">
-                            <i class="fas fa-cog text-indigo-400"></i>
-                            <span>Settings</span>
-                        </div>
-                        <i class="fas fa-chevron-down"></i>
-                    </button>
-                    <ul class="pl-4 mt-2 space-y-1 hidden">
-                        <li>
-                            <a href="{{ url_for('settings_notifications') }}" class="flex items-center gap-3 p-3 rounded-lg hover:bg-indigo-700/50 transition-all duration-200">
-                                <i class="fas fa-bell text-indigo-400"></i>
-                                <span>Notifications</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ url_for('settings_securite') }}" class="flex items-center gap-3 p-3 rounded-lg hover:bg-indigo-700/50 transition-all duration-200">
-                                <i class="fas fa-lock text-indigo-400"></i>
-                                <span>Sécurité</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ url_for('settings_apparence') }}" class="flex items-center gap-3 p-3 rounded-lg hover:bg-indigo-700/50 transition-all duration-200">
-                                <i class="fas fa-palette text-indigo-400"></i>
-                                <span>Apparence</span>
-                            </a>
-                        </li>
+            <!-- Nouveau menu Settings avec sous-menu -->
+            <li class="relative group">
+                <button class="flex items-center justify-between w-full p-3 rounded-lg hover:bg-indigo-700/50 transition-all duration-200">
+                    <div class="flex items-center gap-2">
+                        <i class="fas fa-cog text-indigo-400"></i>
+                        <span>Settings</span>
+                    </div>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <ul class="pl-4 mt-2 space-y-1 hidden">
+                    <li>
+                        <a href="{{ url_for('settings_notifications') }}" class="flex items-center gap-3 p-3 rounded-lg hover:bg-indigo-700/50 transition-all duration-200">
+                            <i class="fas fa-bell text-indigo-400"></i>
+                            <span>Notifications</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('settings_securite') }}" class="flex items-center gap-3 p-3 rounded-lg hover:bg-indigo-700/50 transition-all duration-200">
+                            <i class="fas fa-lock text-indigo-400"></i>
+                            <span>Sécurité</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('settings_apparence') }}" class="flex items-center gap-3 p-3 rounded-lg hover:bg-indigo-700/50 transition-all duration-200">
+                            <i class="fas fa-palette text-indigo-400"></i>
+                            <span>Apparence</span>
+                        </a>
+                    </li>
                     </ul>
                 </li>
             </ul>
         </div>
     </nav>
+
+    <!-- Contenu principal -->
+    <div class="ml-64 flex-1 bg-indigo-50 min-h-screen">
+        <!-- En-tête -->
+        <div class="p-8">
+            <div class="flex justify-between items-center mb-6">
+                <div>
+                    <h1 class="text-3xl font-bold text-indigo-900">Boutique d'Emeraudes</h1>
+                    <p class="text-indigo-600">Choisissez votre pack d'emeraudes</p>
+                </div>
+                <div class="bg-indigo-800 p-4 rounded-lg shadow-lg">
+                    <div class="flex items-center gap-3">
+                        <i class="fas fa-gem text-emerald-400 text-xl"></i>
+                        <div>
+                            <p class="text-indigo-200 text-sm">Votre solde</p>
+                            <p class="text-white font-bold">{{ user.emeralds if user else 0 }} Emeraudes</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Grille des packs -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Pack Starter -->
+                <div class="bg-indigo-800 rounded-lg p-6 text-white shadow-lg hover:shadow-xl transition-all duration-300">
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <h3 class="text-lg font-semibold">Pack Starter</h3>
+                            <p class="text-emerald-400 flex items-center gap-2 mt-1">
+                                <i class="fas fa-gem"></i>
+                                <span>1000 Emeraudes</span>
+                            </p>
+                        </div>
+                        <span class="bg-emerald-400 text-indigo-900 px-2 py-1 rounded-full text-sm font-medium">
+                            Populaire
+                        </span>
+                    </div>
+                    <div class="mb-6">
+                        <p class="text-3xl font-bold">9.99€</p>
+                        <p class="text-indigo-300 text-sm">(0.01€ par emeraude)</p>
+                    </div>
+                    <button onclick="buyEmeralds('starter', 9.99, 1000)" 
+                            class="w-full bg-indigo-600 py-3 rounded-lg hover:bg-indigo-700 transition-all duration-300 flex items-center justify-center gap-2">
+                        <i class="fas fa-shopping-cart"></i>
+                        Acheter
+                    </button>
+                </div>
+
+                <!-- Pack Plus -->
+                <div class="bg-indigo-800 rounded-lg p-6 text-white shadow-lg hover:shadow-xl transition-all duration-300">
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <h3 class="text-lg font-semibold">Pack Plus</h3>
+                            <p class="text-emerald-400 flex items-center gap-2 mt-1">
+                                <i class="fas fa-gem"></i>
+                                <span>2500 Emeraudes</span>
+                            </p>
+                        </div>
+                        <span class="bg-purple-400 text-indigo-900 px-2 py-1 rounded-full text-sm font-medium">
+                            +25% Bonus
+                        </span>
+                    </div>
+                    <div class="mb-6">
+                        <p class="text-3xl font-bold">19.99€</p>
+                        <p class="text-indigo-300 text-sm">(0.008€ par emeraude)</p>
+                    </div>
+                    <button onclick="buyEmeralds('plus', 19.99, 2500)" 
+                            class="w-full bg-indigo-600 py-3 rounded-lg hover:bg-indigo-700 transition-all duration-300 flex items-center justify-center gap-2">
+                        <i class="fas fa-shopping-cart"></i>
+                        Acheter
+                    </button>
+                </div>
+
+                <!-- Pack Pro -->
+                <div class="bg-indigo-800 rounded-lg p-6 text-white shadow-lg hover:shadow-xl transition-all duration-300 relative border-2 border-emerald-400">
+                    <div class="absolute -top-3 left-1/2 transform -translate-x-1/2">
+                        <span class="bg-emerald-400 text-indigo-900 px-4 py-1 rounded-full text-sm font-bold">
+                            MEILLEURE OFFRE
+                        </span>
+                    </div>
+                    <div class="flex justify-between items-start mb-4 mt-2">
+                        <div>
+                            <h3 class="text-lg font-semibold">Pack Pro</h3>
+                            <p class="text-emerald-400 flex items-center gap-2 mt-1">
+                                <i class="fas fa-gem"></i>
+                                <span>7500 Emeraudes</span>
+                            </p>
+                        </div>
+                        <span class="bg-indigo-400 text-indigo-900 px-2 py-1 rounded-full text-sm font-medium">
+                            +50% Bonus
+                        </span>
+                    </div>
+                    <div class="mb-6">
+                        <p class="text-3xl font-bold">49.99€</p>
+                        <p class="text-indigo-300 text-sm">(0.006€ par emeraude)</p>
+                    </div>
+                    <button onclick="buyEmeralds('pro', 49.99, 7500)" 
+                            class="w-full bg-emerald-500 py-3 rounded-lg hover:bg-emerald-600 transition-all duration-300 flex items-center justify-center gap-2">
+                        <i class="fas fa-shopping-cart"></i>
+                        Acheter
+                    </button>
+                </div>
+
+                <!-- Pack Ultimate -->
+                <div class="bg-indigo-800 rounded-lg p-6 text-white shadow-lg hover:shadow-xl transition-all duration-300">
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <h3 class="text-lg font-semibold">Pack Ultimate</h3>
+                            <p class="text-emerald-400 flex items-center gap-2 mt-1">
+                                <i class="fas fa-gem"></i>
+                                <span>20000 Emeraudes</span>
+                            </p>
+                        </div>
+                        <span class="bg-amber-400 text-indigo-900 px-2 py-1 rounded-full text-sm font-medium">
+                            +100% Bonus
+                        </span>
+                    </div>
+                    <div class="mb-6">
+                        <p class="text-3xl font-bold">99.99€</p>
+                        <p class="text-indigo-300 text-sm">(0.005€ par emeraude)</p>
+                    </div>
+                    <button onclick="buyEmeralds('ultimate', 99.99, 20000)" 
+                            class="w-full bg-indigo-600 py-3 rounded-lg hover:bg-indigo-700 transition-all duration-300 flex items-center justify-center gap-2">
+                        <i class="fas fa-shopping-cart"></i>
+                        Acheter
+                    </button>
+                </div>
+            </div>
+
+            <!-- Section Informations -->
+            <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-indigo-800 rounded-lg p-6 text-white">
+                    <div class="flex items-center gap-4">
+                        <div class="bg-indigo-700 p-3 rounded-lg">
+                            <i class="fas fa-shield-alt text-emerald-400 text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold">Paiement sécurisé</h3>
+                            <p class="text-indigo-300 text-sm">Toutes vos transactions sont protégées</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-indigo-800 rounded-lg p-6 text-white">
+                    <div class="flex items-center gap-4">
+                        <div class="bg-indigo-700 p-3 rounded-lg">
+                            <i class="fas fa-bolt text-emerald-400 text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold">Livraison instantanée</h3>
+                            <p class="text-indigo-300 text-sm">Vos emeraudes sont créditées immédiatement</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-indigo-800 rounded-lg p-6 text-white">
+                    <div class="flex items-center gap-4">
+                        <div class="bg-indigo-700 p-3 rounded-lg">
+                            <i class="fas fa-headset text-emerald-400 text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold">Support 24/7</h3>
+                            <p class="text-indigo-300 text-sm">Notre équipe est là pour vous aider</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-8">
+                <div class="bg-indigo-800 rounded-lg p-6 text-white">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="bg-indigo-700 p-3 rounded-lg">
+                            <i class="fas fa-plus text-emerald-400 text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-xl">Rajout d'Emeraudes</h3>
+                            <p class="text-indigo-300 text-sm">Ajoutez des emeraudes à votre compte</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4 items-end">
+                        <div class="flex-1">
+                            <label for="emeraldsInput" class="block text-indigo-300 text-sm mb-2">Nombre d'emeraudes</label>
+                            <input type="number" 
+                                   id="emeraldsInput" 
+                                   min="1" 
+                                   placeholder="Entrez le montant..." 
+                                   class="w-full bg-indigo-700 border border-indigo-600 rounded-lg px-4 py-2 text-white placeholder-indigo-400 focus:outline-none focus:ring-2 focus:ring-emerald-400">
+                        </div>
+                        <button onclick="addEmeralds()" 
+                                class="bg-emerald-500 hover:bg-emerald-600 transition-colors px-6 py-2 rounded-lg flex items-center gap-2">
+                            <i class="fas fa-gem"></i>
+                            Ajouter
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    function buyEmeralds(pack, price, amount) {
+        if (confirm(`Confirmer l'achat de ${amount} emeraudes pour ${price}€ ?`)) {
+            window.location.href = `/paiement/${pack}?amount=${amount}&price=${price}`;
+        }
+    }
+    function addEmeralds() {
+        const amount = document.getElementById('emeraldsInput').value;
+        if (amount && amount > 0) {
+            if (confirm(`Confirmer l'ajout de ${amount} emeraudes ?`)) {
+                window.location.href = `/addEmeralds?amount=${amount}`;
+            }
+        } else {
+            alert('Veuillez entrer un nombre valide d\'emeraudes');
+        }
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+    // Sélectionner tous les boutons de menu déroulant
+    const dropdownButtons = document.querySelectorAll('.group > button');
+
+    // Ajouter un écouteur d'événements à chaque bouton
+    dropdownButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            // Trouver le sous-menu associé au bouton
+            const submenu = this.nextElementSibling;
+            
+            // Toggle la classe 'hidden' pour afficher/masquer le sous-menu
+            submenu.classList.toggle('hidden');
+            
+            // Rotation de l'icône chevron
+            const chevron = this.querySelector('.fa-chevron-down');
+            chevron.style.transform = submenu.classList.contains('hidden') ? 
+                'rotate(0deg)' : 'rotate(180deg)';
+            chevron.style.transition = 'transform 0.2s ease';
+        });
+    });
+});
+
+    </script>
+</body>
+</html>
+
