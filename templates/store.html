@@ -30,11 +30,35 @@
                         <span>Chat</span>
                     </a>
                 </li>
-                <li>
-                    <a href="{{ url_for('store') }}" class="flex items-center gap-3 p-3 rounded-lg bg-indigo-800">
-                        <i class="fas fa-store text-indigo-400"></i>
-                        <span>Store</span>
-                    </a>
+                
+                <li class="relative group">
+                    <button class="flex items-center justify-between w-full p-3 rounded-lg hover:bg-indigo-700/50 transition-all duration-200">
+                        <div class="flex items-center gap-2">
+                            <i class="fas fa-store text-indigo-400"></i>
+                            <span>Shop</span>
+                        </div>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <ul class="pl-4 mt-2 space-y-1 hidden">
+                        <li>
+                            <a href="{{ url_for('store') }}" class="flex items-center gap-3 p-3 rounded-lg hover:bg-indigo-700/50 transition-all duration-200">
+                                <i class="fas fa-gem text-indigo-400"></i>
+                                <span>Store</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ url_for('abonnement') }}" class="flex items-center gap-3 p-3 rounded-lg hover:bg-indigo-700/50 transition-all duration-200">
+                                <i class="fas fa-bell text-indigo-400"></i>
+                                <span>Abonnement</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ url_for('graphique') }}" class="flex items-center gap-3 p-3 rounded-lg hover:bg-indigo-700/50 transition-all duration-200">
+                                <i class="fas fa-chart-line text-indigo-400"></i>
+                                <span>Graphique</span>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
                 
                 <li class="relative group">
@@ -314,6 +338,34 @@
                     </div>
                 </div>
             </div>
+            <div class="mt-8">
+                <div class="bg-indigo-800 rounded-lg p-6 text-white">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="bg-indigo-700 p-3 rounded-lg">
+                            <i class="fas fa-minus text-emerald-400 text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-xl">Retrait d'Emeraudes</h3>
+                            <p class="text-indigo-300 text-sm">Retirez des emeraudes de votre compte</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4 items-end">
+                        <div class="flex-1">
+                            <label for="emeraldsInput" class="block text-indigo-300 text-sm mb-2">Nombre d'emeraudes</label>
+                            <input type="number" 
+                                   id="emeraldsInput" 
+                                   min="1" 
+                                   placeholder="Entrez le montant..." 
+                                   class="w-full bg-indigo-700 border border-indigo-600 rounded-lg px-4 py-2 text-white placeholder-indigo-400 focus:outline-none focus:ring-2 focus:ring-emerald-400">
+                        </div>
+                        <button onclick="removeEmeralds()" 
+                                class="bg-red-500 hover:bg-red-600 transition-colors px-6 py-2 rounded-lg flex items-center gap-2">
+                            <i class="fas fa-minus"></i>
+                            Retirer
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -328,6 +380,16 @@
         if (amount && amount > 0) {
             if (confirm(`Confirmer l'ajout de ${amount} emeraudes ?`)) {
                 window.location.href = `/addEmeralds?amount=${amount}`;
+            }
+        } else {
+            alert('Veuillez entrer un nombre valide d\'emeraudes');
+        }
+    }
+    function removeEmeralds() {
+        const amount = document.getElementById('emeraldsInput').value;
+        if (amount && amount > 0) {
+            if (confirm(`Confirmer le retrait de ${amount} emeraudes ?`)) {
+                window.location.href = `/removeEmeralds?amount=${amount}`;
             }
         } else {
             alert('Veuillez entrer un nombre valide d\'emeraudes');

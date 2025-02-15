@@ -1,9 +1,9 @@
 import flask
-from flask import request, jsonify, render_template, url_for, session, redirect
+from flask import request, jsonify, render_template, url_for, session, redirect, flash
 from werkzeug.security import generate_password_hash, check_password_hash
 import sqlite3
 import os
-from database import init_db
+from database import init_db, add_emeralds_column
 from functools import wraps
 
 app = flask.Flask(__name__, static_url_path='/static')
@@ -14,6 +14,13 @@ if not os.path.exists('database.db'):
     print("Initialisation de la base de données...")
     init_db()
     print("Base de données initialisée!")
+
+try:
+    print("Verification de la colonne emeralds...")
+    add_emeralds_column()
+    print("Structure de la base de données verifiée avec succès!")
+except Exception as e:
+    print(f"Erreur lors de la vérification de la structure de la base de données: {e}")
 
 def get_db():
     try:
@@ -309,7 +316,94 @@ def process_emeralds_payment():
     finally:
         if 'db' in locals():
             db.close()
+
+@app.route('/addEmeralds', methods=['GET'])
+@login_required
+def add_emeralds():
+    try:
+        # Récupérer le montant depuis l'URL
+        amount = request.args.get('amount', type=int)
+        print(f"Tentative d'ajout de {amount} emeraudes")
+        
+        if not amount or amount <= 0:
+            print("Montant invalide")
+            flash('Montant invalide', 'error')
+            return redirect(url_for('store'))
             
+        db = get_db()
+        cursor = db.cursor()
+        
+        # Vérifier le solde actuel
+        current = cursor.execute(
+            'SELECT emeralds FROM users WHERE id = ?', 
+            (session['user_id'],)
+        ).fetchone()
+        print(f"Solde actuel: {current}")
+        
+        # Mettre à jour le solde d'emeraudes
+        cursor.execute('''
+            UPDATE users 
+            SET emeralds = COALESCE(emeralds, 0) + ?
+            WHERE id = ?
+        ''', (amount, session['user_id']))
+        
+        db.commit()
+        
+        # Vérifier le nouveau solde
+        new_balance = cursor.execute(
+            'SELECT emeralds FROM users WHERE id = ?', 
+            (session['user_id'],)
+        ).fetchone()
+        print(f"Nouveau solde: {new_balance}")
+        
+        if new_balance:
+            flash(f'{amount} emeraudes ont été ajoutées à votre compte!', 'success')
+        
+        return redirect(url_for('store'))
+        
+    except sqlite3.Error as e:
+        print(f"Erreur SQLite détaillée: {str(e)}")
+        flash('Une erreur est survenue', 'error')
+        return redirect(url_for('store'))
+    finally:
+        if 'db' in locals():
+            db.close()
+
+@app.route('/store')
+@login_required
+def store():
+    try:
+        db = get_db()
+        cursor = db.cursor()
+        
+        # Vérifier l'ID de l'utilisateur
+        print(f"ID utilisateur: {session['user_id']}")
+        
+        # Récupérer les informations de l'utilisateur
+        user_data = cursor.execute('''
+            SELECT id, username, email, emeralds 
+            FROM users 
+            WHERE id = ?
+        ''', (session['user_id'],)).fetchone()
+        
+        print(f"Données utilisateur: {user_data}")
+        
+        if not user_data:
+            print("Utilisateur non trouvé")
+            return redirect(url_for('home'))
+            
+        # Convertir en dictionnaire
+        user = dict(user_data)
+        print(f"Données converties: {user}")
+        
+        return render_template('store.html', user=user)
+        
+    except Exception as e:
+        print(f"Erreur détaillée: {str(e)}")
+        return redirect(url_for('home'))
+    finally:
+        if 'db' in locals():
+            db.close()
 
 @app.route('/dashboard')
 @login_required
@@ -398,10 +492,11 @@ def paiement(plan):
         if 'db' in locals():
             db.close()
 
-@app.route('/store')
+
+@app.route('/graphique')
 @login_required
-def store():
-    return render_template('store.html')
+def graphique():
+    return render_template('graphique.html')
 
 # Ajouter une route de déconnexion
 @app.route('/logout')
@@ -412,3 +507,4 @@ def logout():
 
 if __name__ == '__main__':
     app.run(debug=True)
+  

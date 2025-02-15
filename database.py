@@ -50,6 +50,8 @@ def add_emeralds_column():
     finally:
         conn.close()
 
+    
+
 # Appelez cette fonction au démarrage de l'application
 if __name__ == '__main__':
     add_emeralds_column()
