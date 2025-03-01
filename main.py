@@ -368,7 +368,7 @@ def add_emeralds():
     finally:
         if 'db' in locals():
             db.close()
-
+            
 @app.route('/store')
 @login_required
 def store():

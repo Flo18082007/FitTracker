@@ -1,151 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Portfolio - FitTracker</title>
-        <script src="https://cdn.tailwindcss.com"></script>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    </head>
-    <body class="flex bg-gray-100">
-        <!-- Navbar latérale (la même que les autres pages) -->
-        <nav class="w-64 h-screen bg-gradient-to-b from-indigo-800 to-indigo-900 text-white fixed left-0 top-0">
-            <div class="p-6">
-                <div class="flex items-center gap-3 text-2xl font-bold mb-10">
-                    <i class="fas fa-dumbbell text-indigo-400"></i>
-                    <span class="text-indigo-100">FitTracker</span>
-                </div>
-                
-                <!-- Menu principal avec style amélioré -->
-                <ul class="space-y-4">
-                    <li>
-                        <a href="{{ url_for('dashboard') }}" class="flex items-center gap-3 p-3 rounded-lg hover:bg-indigo-700/50 transition-all duration-200">
-                            <i class="fas fa-home text-indigo-400"></i>
-                            <span>Dashboard</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ url_for('chat') }}" class="flex items-center gap-3 p-3 rounded-lg hover:bg-indigo-700/50 transition-all duration-200">
-                            <i class="fas fa-comment text-indigo-400"></i>
-                            <span>Chat</span>
-                        </a>
-                    </li>
-                    
-                    <!-- Menu Information Personnelle avec sous-menu -->
-                 <li class="relative group">
-                    <button class="flex items-center justify-between w-full p-3 rounded-lg hover:bg-indigo-700/50 transition-all duration-200">
-                        <div class="flex items-center gap-2">
-                            <i class="fas fa-store text-indigo-400"></i>
-                            <span>Shop</span>
-                        </div>
-                        <i class="fas fa-chevron-down"></i>
-                    </button>
-                    <ul class="pl-4 mt-2 space-y-1 hidden">
-                        <li>
-                            <a href="{{ url_for('store') }}" class="flex items-center gap-3 p-3 rounded-lg hover:bg-indigo-700/50 transition-all duration-200">
-                                <i class="fas fa-gem text-indigo-400"></i>
-                                <span>Store</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ url_for('abonnement') }}" class="flex items-center gap-3 p-3 rounded-lg hover:bg-indigo-700/50 transition-all duration-200">
-                                <i class="fas fa-bell text-indigo-400"></i>
-                                <span>Abonnement</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ url_for('graphique') }}" class="flex items-center gap-3 p-3 rounded-lg hover:bg-indigo-700/50 transition-all duration-200">
-                                <i class="fas fa-chart-line text-indigo-400"></i>
-                                <span>Graphique</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                    
-                    <!-- Menu Information Personnelle avec sous-menu -->
-                    <li class="relative group">
+{% extends "endblock.html" %}
 
-                        <button class="flex items-center justify-between w-full p-3 rounded-lg hover:bg-indigo-700/50 transition-all duration-200">
-                            <div class="flex items-center gap-2">
-                                <i class="fas fa-user text-indigo-400"></i>
-                                <span>Account</span>
-                            </div>
-                            <i class="fas fa-chevron-down"></i>
-                        </button>
-                        <ul class="pl-4 mt-2 space-y-1 hidden">
-                            <li>
-                                <a href="{{ url_for('profil') }}" class="flex items-center gap-3 p-3 rounded-lg hover:bg-indigo-700/50 transition-all duration-200">
-                                    <i class="fas fa-id-card text-indigo-400"></i>
-                                    <span>Profil</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{ url_for('abonnement') }}" class="flex items-center gap-3 p-3 rounded-lg hover:bg-indigo-700/50 transition-all duration-200">
-                                    <i class="fas fa-bell text-indigo-400"></i>
-                                    <span>Abonnement</span>
-                                </a>
-                            </li>
-                            <li>
+{% block title %}Portfolio - FitTracker{% endblock %}
 
-                                <a href="{{ url_for('planning') }}" class="flex items-center gap-3 p-3 rounded-lg hover:bg-indigo-700/50 transition-all duration-200">
-                                    <i class="fas fa-calendar-alt text-indigo-400"></i>
-                                    <span>Plannings</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{ url_for('objectifs') }}" class="flex items-center gap-3 p-3 rounded-lg hover:bg-indigo-700/50 transition-all duration-200">
-                                    <i class="fas fa-chart-line text-indigo-400"></i>
-                                    <span>Objectifs</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{ url_for('alimentation') }}" class="flex items-center gap-3 p-3 rounded-lg hover:bg-indigo-700/50 transition-all duration-200">
-                                    <i class="fas fa-utensils text-indigo-400"></i>
-                                    <span>Alimentation</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{ url_for('fromage') }}" class="flex items-center gap-3 p-3 rounded-lg hover:bg-indigo-700/50 transition-all duration-200">
-                                    <i class="fas fa-chart-pie text-indigo-400"></i>
-                                    <span>Macronutriments</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-    
-                    <!-- Nouveau menu Settings avec sous-menu -->
-                    <li class="relative group">
-                        <button class="flex items-center justify-between w-full p-3 rounded-lg hover:bg-indigo-700/50 transition-all duration-200">
-                            <div class="flex items-center gap-2">
-                                <i class="fas fa-cog text-indigo-400"></i>
-                                <span>Settings</span>
-                            </div>
-                            <i class="fas fa-chevron-down"></i>
-                        </button>
-                        <ul class="pl-4 mt-2 space-y-1 hidden">
-                            <li>
-                                <a href="{{ url_for('settings_notifications') }}" class="flex items-center gap-3 p-3 rounded-lg hover:bg-indigo-700/50 transition-all duration-200">
-                                    <i class="fas fa-bell text-indigo-400"></i>
-                                    <span>Notifications</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{ url_for('settings_securite') }}" class="flex items-center gap-3 p-3 rounded-lg hover:bg-indigo-700/50 transition-all duration-200">
-                                    <i class="fas fa-lock text-indigo-400"></i>
-                                    <span>Sécurité</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{ url_for('settings_apparence') }}" class="flex items-center gap-3 p-3 rounded-lg hover:bg-indigo-700/50 transition-all duration-200">
-                                    <i class="fas fa-palette text-indigo-400"></i>
-                                    <span>Apparence</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </nav>
+{% block content %}
 
         <!-- Contenu principal -->
         <main class="ml-64 w-full bg-gray-50 min-h-screen">
@@ -255,6 +112,10 @@
             </div>
         </main>
 
+        {% endblock %}
+
+        {% block scripts %}
         <script src="{{ url_for('static', filename='js/profil-navbar.js') }}"></script>
+        {% endblock %}
     </body>
 </html>

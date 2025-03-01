@@ -1,13 +1,21 @@
-<!DOCTYPE html>
-<html lang="fr">
+<!DOCTYPE html> 
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Suivi des Repas</title>
+    <title>{% block title %}Dashboard{% endblock %}</title>
+    {% block head %}
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    {% endblock %}
 </head>
 <body class="flex bg-gray-100">
+    
+    {% block sidebar %}
     <!-- Navbar latérale -->
     <nav class="w-64 h-screen bg-gradient-to-b from-indigo-800 to-indigo-900 text-white fixed left-0 top-0">
         <div class="p-6">
@@ -16,6 +24,7 @@
                 <span class="text-indigo-100">FitTracker</span>
             </div>
             
+            <!-- Menu principal avec style amélioré -->
             <ul class="space-y-4">
                 <li>
                     <a href="{{ url_for('dashboard') }}" class="flex items-center gap-3 p-3 rounded-lg hover:bg-indigo-700/50 transition-all duration-200">
@@ -29,9 +38,9 @@
                         <span>Chat</span>
                     </a>
                 </li>
-
+                
                 <!-- Menu Information Personnelle avec sous-menu -->
-                 <li class="relative group">
+                <li class="relative group">
                     <button class="flex items-center justify-between w-full p-3 rounded-lg hover:bg-indigo-700/50 transition-all duration-200">
                         <div class="flex items-center gap-2">
                             <i class="fas fa-store text-indigo-400"></i>
@@ -60,12 +69,12 @@
                         </li>
                     </ul>
                 </li>
-
+                
                 <!-- Menu Information Personnelle avec sous-menu -->
                 <li class="relative group">
+
                     <button class="flex items-center justify-between w-full p-3 rounded-lg hover:bg-indigo-700/50 transition-all duration-200">
                         <div class="flex items-center gap-2">
-
                             <i class="fas fa-user text-indigo-400"></i>
                             <span>Account</span>
                         </div>
@@ -73,23 +82,18 @@
                     </button>
                     <ul class="pl-4 mt-2 space-y-1 hidden">
                         <li>
-                            <a href="{{ url_for('fromage') }}" class="flex items-center gap-3 p-3 rounded-lg hover:bg-indigo-700/50 transition-all duration-200">
+                            <a href="{{ url_for('profil') }}" class="flex items-center gap-3 p-3 rounded-lg hover:bg-indigo-700/50 transition-all duration-200">
                                 <i class="fas fa-id-card text-indigo-400"></i>
                                 <span>Profil</span>
                             </a>
                         </li>
                         <li>
                             <a href="{{ url_for('planning') }}" class="flex items-center gap-3 p-3 rounded-lg hover:bg-indigo-700/50 transition-all duration-200">
-                                <i class="fas fa-calendar text-indigo-400"></i>
-                                <span>Planning</span>
+                                <i class="fas fa-calendar-alt text-indigo-400"></i>
+                                <span>Plannings</span>
                             </a>
                         </li>
                         <li>
-                            <a href="{{ url_for('abonnement') }}" class="flex items-center gap-3 p-3 rounded-lg hover:bg-indigo-700/50 transition-all duration-200">
-                                <i class="fas fa-bell text-indigo-400"></i>
-                                <span>Abonnement</span>
-                            </a>
-                        </li>
                             <a href="{{ url_for('objectifs') }}" class="flex items-center gap-3 p-3 rounded-lg hover:bg-indigo-700/50 transition-all duration-200">
                                 <i class="fas fa-chart-line text-indigo-400"></i>
                                 <span>Objectifs</span>
@@ -109,6 +113,8 @@
                         </li>
                     </ul>
                 </li>
+
+                <!-- Nouveau menu Settings avec sous-menu -->
                 <li class="relative group">
                     <button class="flex items-center justify-between w-full p-3 rounded-lg hover:bg-indigo-700/50 transition-all duration-200">
                         <div class="flex items-center gap-2">
@@ -129,90 +135,34 @@
                                 <i class="fas fa-lock text-indigo-400"></i>
                                 <span>Sécurité</span>
                             </a>
+
                         </li>
                         <li>
                             <a href="{{ url_for('settings_apparence') }}" class="flex items-center gap-3 p-3 rounded-lg hover:bg-indigo-700/50 transition-all duration-200">
                                 <i class="fas fa-palette text-indigo-400"></i>
                                 <span>Apparence</span>
                             </a>
+
                         </li>
                     </ul>
                 </li>
             </ul>
         </div>
     </nav>
+    {% endblock %}
 
-    <!-- Contenu principal -->
-    <main class="ml-64 w-full min-h-screen p-8">
-        <div class="max-w-6xl mx-auto">
-            <h1 class="text-3xl font-bold text-indigo-900 mb-8">Journal Alimentaire</h1>
-            <!-- Formulaire d'ajout de repas -->
-            <div class="bg-white rounded-xl shadow-lg p-6 border border-gray-100 mb-8">
-                <form id="mealForm" class="space-y-4">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-gray-700 text-sm font-bold mb-2" for="mealName">
-                                Nom du repas
-                            </label>
-                            <input type="text" id="mealName" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500">
-                        </div>
-                        <div>
-                            <label class="block text-gray-700 text-sm font-bold mb-2" for="calories">
-                                Calories
-                            </label>
-                            <input type="number" id="calories" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500">
-                        </div>
-                    </div>
-                    <div>
-                        <label class="block text-gray-700 text-sm font-bold mb-2" for="mealType">
-                            Type de repas
-                        </label>
-                        <select id="mealType" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500">
-                            <option value="petit-dejeuner">Petit-déjeuner</option>
-                            <option value="dejeuner">Déjeuner</option>
-                            <option value="diner">Dîner</option>
-                            <option value="collation">Collation</option>
-                        </select>
-                    </div>
-                    <button type="submit" class="w-full bg-indigo-500 text-white py-2 px-4 rounded-md hover:bg-indigo-700 transition duration-300">
-                        Ajouter le repas
-                    </button>
-                </form>
-            </div>
+    {% block content %}
+    <!-- Le contenu principal sera inséré ici -->
+    {% endblock %}
+    
+    {% block footer %}
+    <!-- Footer content -->
+    {% endblock %}
 
-            <!-- Résumé des calories -->
-            <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
-                <h2 class="text-2xl font-bold text-gray-800 mb-4">Résumé du jour</h2>
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    <div class="bg-blue-50 p-4 rounded-lg">
-                        <p class="text-sm text-gray-600">Total Calories</p>
-                        <p id="totalCalories" class="text-2xl font-bold text-blue-600">0</p>
-                    </div>
-                    <div class="bg-green-50 p-4 rounded-lg">
-                        <p class="text-sm text-gray-600">Petit-déjeuner</p>
-                        <p id="breakfastCalories" class="text-2xl font-bold text-green-600">0</p>
-                    </div>
-                    <div class="bg-yellow-50 p-4 rounded-lg">
-                        <p class="text-sm text-gray-600">Déjeuner</p>
-                        <p id="lunchCalories" class="text-2xl font-bold text-yellow-600">0</p>
-                    </div>
-                    <div class="bg-red-50 p-4 rounded-lg">
-                        <p class="text-sm text-gray-600">Dîner</p>
-                        <p id="dinnerCalories" class="text-2xl font-bold text-red-600">0</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Liste des repas -->
-            <div class="bg-white rounded-lg shadow-lg p-6">
-                <h2 class="text-2xl font-bold text-gray-800 mb-4">Repas d'aujourd'hui</h2>
-                <div id="mealsList" class="space-y-4">
-                    <!-- Les repas seront ajoutés ici dynamiquement -->
-                </div>
-            </div>
-        </div>
-    </main>
-    <script src="{{ url_for('static', filename='js/alimentation.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/alimentation-navbar.js') }}"></script>
+    {% block scripts %}
+    <script src="{{ url_for('static', filename='js/graph_poids.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/graph_calories.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/Dashboard.js') }}"></script>
+    {% endblock %}
 </body>
 </html>
